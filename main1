@@ -1,0 +1,48 @@
+import random
+
+
+def generate_math_question(a, b):
+    n1, n2 = random.randint(a, b), random.randint(a, b)
+    oper = ['-', '+', '*', '//', '%']
+    # sym = oper[random.randint(0, len(oper) - 1)]
+    sym = random.choice(oper)
+    ques = f'{n1} {sym} {n2}'
+    return ques
+
+
+def check_answer(question, user_answer):
+    try:
+        user_answer = float(user_answer)
+        return user_answer == eval(question)
+    except:
+        return False
+
+
+def math_quiz(number_of_questions=10):
+    print('Добро пожаловать в математический тест!')
+    c = 0
+    for i in range(number_of_questions):
+        q = generate_math_question(1, 100)
+        a = input(f'Введите ответ: {q} = ')
+        b = check_answer(q, a)
+        if b:
+            print('Верно')
+            c += 1
+        else:
+            print('Неверно')
+
+    print('Тест завершен.')
+    print('Вы правильно решили', c, 'из', number_of_questions, 'вопросов')
+    if c == number_of_questions:
+        print('Великолепно! Вы не сделали ни одной ошибки и получаете оценку 5+')
+    elif c / number_of_questions >= 0.8:
+        print('Отлично! Вы получаете оценку 5')
+    elif c / number_of_questions >= 0.6:
+        print('Хорошо! Вы получаете оценку 4')
+    elif c / number_of_questions >= 0.45:
+        print('Нормально! Вы получаете оценку 3')
+    else:
+        print('Плохо! Вы получаете оценку 2')
+
+
+math_quiz()
